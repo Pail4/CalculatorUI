@@ -23,18 +23,25 @@ let numbers = document.querySelectorAll(".num");
 let operations = document.querySelectorAll(".operation")
 
 function numberClick() {
+    if (currentNumber === null){
+        currentNumber = 0;
+    }
     if (currentNumber < 10000) {
         currentNumber += this.textContent;
         update();
     }
-
 }
 
 function operatorClick() {
-    getResult(operation, firstNumber, currentNumber)
-    operation = this.id;
-    firstNumber = currentNumber;
-    currentNumber = 0;
+    if (currentNumber != null){
+        getResult(operation, firstNumber, currentNumber);
+        operation = this.id;
+        firstNumber = currentNumber;
+        currentNumber = null;
+    }
+    else {
+        operation = this.id;
+    }
 }
 
 function getResult() {
@@ -61,7 +68,7 @@ function undo() {
 
 function update() {
     currentNumber = Number(currentNumber);
-    if (currentNumber >= 100000) {
+    if (line.style.overflow != "auto" && currentNumber >= 100000) {
         line.style.overflow = "auto";
         line.style.fontSize = "74px";
     }
