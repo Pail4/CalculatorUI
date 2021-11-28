@@ -67,8 +67,7 @@ function undo() {
 }
 
 function update() {
-    currentNumber = Number(currentNumber);
-    if (line.style.overflow != "auto" && currentNumber >= 100000) {
+    if (line.style.overflow != "auto" && String(currentNumber).length > 6) {
         line.style.overflow = "auto";
         line.style.fontSize = "74px";
     }
@@ -76,6 +75,7 @@ function update() {
         line.style.overflow = "inherit";
         line.style.fontSize = "96px";
     }
+    currentNumber = Math.floor(currentNumber * 100) / 100;
     line.textContent = currentNumber;
 }
 
